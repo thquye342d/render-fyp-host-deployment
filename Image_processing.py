@@ -98,5 +98,9 @@ def upload():
     print(f"Returning CMYK data: {cmyk_data}")
     return jsonify(cmyk_data)  # Returning JSON object instead of a list
 
+@app.route('/', methods=['GET'])
+def home():
+    return "Flask server is up and running!"
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
