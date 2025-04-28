@@ -20,9 +20,9 @@ jobs:
       - name: Log in to Azure
         uses: azure/login@v2
         with:
-           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_55507DAB8DC348868D9A2289C7B71DD8 }}
-           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F33BF72F3F5743E7B2D0E74AF7B71487 }}
-           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9369C35916024B0889CFD37979AD1AE7 }}
+          client-id: 14a38e5b-209c-4ee0-9137-96ce32e0c801
+          tenant-id: 21e0a50f-25dc-4caa-a266-d2388aefd09f
+          subscription-id: 260cfcc1-8864-49c2-9bb8-6a7dd836960e
 
       - name: Build Docker Image
         run: docker build -t fyppythonflask .
