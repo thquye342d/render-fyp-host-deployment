@@ -9,6 +9,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - name: Checkout code
@@ -21,9 +24,8 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F33BF72F3F5743E7B2D0E74AF7B71487 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9369C35916024B0889CFD37979AD1AE7 }}
 
-      - name: Build and Push Docker Image
-        run: |
-          docker build -t fyppythonflask .
+      - name: Build Docker Image
+        run: docker build -t fyppythonflask .
 
       - name: Deploy Docker Container to Azure Web App
         uses: azure/webapps-deploy@v3
