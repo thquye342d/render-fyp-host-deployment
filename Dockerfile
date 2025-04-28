@@ -6,14 +6,14 @@ RUN apt-get update && apt-get install -y libgl1
 # Set working directory
 WORKDIR /app
 
-# Copy project files
+# Copy code
 COPY . .
 
 # Install Python dependencies
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port
+# Expose port 8000
 EXPOSE 8000
 
-# Start the app
+# Run the app
 CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]
