@@ -2,7 +2,8 @@
 FROM python:3.12-slim
 
 # Install OS packages needed (including libGL)
-RUN apt-get update && apt-get install -y libgl1-mesa-glx
+
+RUN apt-get update && apt-get install -y libgl1-mesa-glx libglib2.0-0
 
 # Set working directory inside the container
 WORKDIR /app
