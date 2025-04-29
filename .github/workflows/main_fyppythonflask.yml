@@ -24,12 +24,24 @@ jobs:
           tenant-id: 21e0a50f-25dc-4caa-a266-d2388aefd09f
           subscription-id: 260cfcc1-8864-49c2-9bb8-6a7dd836960e
 
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build Docker Image
         run: docker build -t fyppythonflask .
+
+      - name: Tag Docker Image for GHCR
+        run: docker tag fyppythonflask ghcr.io/${{ github.repository_owner }}/fyppythonflask
+
+      - name: Push Docker Image to GHCR
+        run: docker push ghcr.io/${{ github.repository_owner }}/fyppythonflask
 
       - name: Deploy Docker Container to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'fyppythonflask'
-          images: 'fyppythonflask'
-          
+          images: 'ghcr.io/${{ github.repository_owner }}/fyppythonflask'
