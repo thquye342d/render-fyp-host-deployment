@@ -21,9 +21,9 @@ jobs:
       - name: Log in to Azure with OIDC
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-id: e6bec723-af6b-4986-9778-c02a9eb62ba3
+          tenant-id: 21e0a50f-25dc-4caa-a266-d2388aefd09f
+          subscription-id: 260cfcc1-8864-49c2-9bb8-6a7dd836960e
 
       - name: Build Docker Image
         run: docker build -t fyppythonflask .
