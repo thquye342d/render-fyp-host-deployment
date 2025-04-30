@@ -1,39 +1,35 @@
-name: Build and Deploy Flask App to Azure Web App
+name: Build and Deploy Flask App to Azure Web App - fyppythonflask
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
-
-env:
-  AZURE_WEBAPP_NAME: fyppythonflask
-  DOCKER_IMAGE_NAME: fyppythonflask
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     permissions:
-      id-token: write
+      id-token: write     # Required for OIDC authentication
       contents: read
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Login to Azure
-      uses: azure/login@v1
-      with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Log in to Azure with OIDC
+        uses: azure/login@v2
+        with:
+          client-id: e6bec723-af6b-4986-9778-c02a9eb62ba3
+          tenant-id: 21e0a50f-25dc-4caa-a266-d2388aefd09f
+          subscription-id: 260cfcc1-8864-49c2-9bb8-6a7dd836960e
 
-    - name: Build and push Docker image
-      run: |
-        docker build -t ${{ env.DOCKER_IMAGE_NAME }} .
-        docker login ${{ secrets.REGISTRY_URL }} -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
-        docker push ${{ env.DOCKER_IMAGE_NAME }}
+      - name: Build Docker Image
+        run: docker build -t fyppythonflask .
 
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        images: ${{ env.DOCKER_IMAGE_NAME }}
+      - name: Deploy Docker Container to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'fyppythonflask'
+          images: 'fyppythonflask'
