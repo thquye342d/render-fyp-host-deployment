@@ -24,6 +24,7 @@ jobs:
           client-id: e6bec723-af6b-4986-9778-c02a9eb62ba3
           tenant-id: 21e0a50f-25dc-4caa-a266-d2388aefd09f
           subscription-id: 260cfcc1-8864-49c2-9bb8-6a7dd836960e
+          auth-type: oidc
 
       - name: Build Docker Image
         run: docker build -t fyppythonflask .
