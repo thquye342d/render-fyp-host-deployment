@@ -26,4 +26,4 @@ RUN mkdir -p /app/uploads
 EXPOSE 8000
 
 # Run Gunicorn (ensure it points to "Image_processing:app")
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--timeout", "60", "--workers=1", "--threads=4", "Image_processing:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--timeout", "60", "--access-logfile", "-", "--error-logfile", "-", "--capture-output", "Image_processing:app"]
