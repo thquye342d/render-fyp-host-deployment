@@ -103,4 +103,5 @@ def home():
     return "Flask server is up and running!"
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    print("Flask app starting...")  # Ensure this appears in logs
+    app.run(host="0.0.0.0", port=8000)
